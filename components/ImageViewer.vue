@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <h2 class="title">Guess the {{imageType}}</h2>
+      <h2 class="title">Guess the {{imageType}} - <span v-bind:class="[imageDifficulty]">{{imageDifficulty}}</span></h2>
     </div>
     <img id="portrait-image">
     <h2 id="imageName" class="title">{{imageName}}</h2>
@@ -17,7 +17,8 @@ export default {
       myPixelation: null,
       imgElement: null,
       imageName: '',
-      imageType: 'Character'
+      imageType: 'Character',
+      imageDifficulty: 'easy'
     }
   },
   beforeMount () {
@@ -54,6 +55,7 @@ export default {
       this.showName(false)
       this.imageName = data.imageName
       this.imageType = data.imageType
+      this.imageDifficulty = data.difficulty
       const img = new Image()
       img.src = data.imageSrc
       img.id = 'portrait-image'
@@ -128,5 +130,17 @@ export default {
 }
 b-button {
   border: 1px solid #ff7b00;
+}
+
+.hard {
+  padding: 0px 5px 0px 5px;
+  border: 2px solid #ff0000;
+  color: #ff0000;
+}
+
+.easy {
+  padding: 0px 5px 0px 5px;
+  border: 2px solid #33ff00;
+  color: #33ff00;
 }
 </style>

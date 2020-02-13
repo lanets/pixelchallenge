@@ -1,9 +1,13 @@
 const fs = require('fs')
 
 // Characters folder
-const pathCharacers = './static/images/character'
+const pathCharactersEasy = './static/images/character/easy'
+const pathCharactersHard = './static/images/character/hard'
 const pathGames = './static/images/game'
 const pathImage = 'images/'
+const pathEasy = 'easy/'
+const pathHard = 'hard/'
+
 let images = [],
   currentImageIdx = 0,
   MaxReso = 200,
@@ -16,9 +20,14 @@ let images = [],
 
 function extractImagePath() {
   if( images.length <= 0 ){
-    fs.readdirSync(pathCharacers).forEach((file) => {
-      images.push("character/".concat(file))
+    // Extract Characters
+    fs.readdirSync(pathCharactersEasy).forEach((file) => {
+      images.push("character/".concat(pathEasy).concat(file))
     })
+    fs.readdirSync(pathCharactersHard).forEach((file) => {
+      images.push("character/".concat(pathHard).concat(file))
+    })
+    // Extract Games
     fs.readdirSync(pathGames).forEach((file) => {
       images.push("game/".concat(file))
     })
@@ -57,15 +66,17 @@ function GetNextImage() {
   }
   reso = MaxReso
   pixelateObj[0].resolution = reso
-  // let name = images[currentImageIdx].split('.').slice(0, -1).toString()
   let pathArray = images[currentImageIdx].split("/")
   let type = pathArray[0]
-  let name = pathArray[1].slice(0, -4)
+  let difficulty = pathArray[1]
+  let name = pathArray[2].slice(0, -4)
+  name = name.replace(/_/g, " ");
   let data = {
     imageSrc: pathImage.concat(images[currentImageIdx]),
     pixelateObj: pixelateObj,
     imageName: capitalizeFirstLetter(name),
-    imageType: type
+    imageType: type,
+    difficulty: difficulty
   }
   return data
 }
