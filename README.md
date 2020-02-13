@@ -1,5 +1,5 @@
 # Guess The Game / Character
-
+![PixelChallenge image](https://github.com/lanets/pixelchallenge/blob/master/static/pixelchallenge.png)
 This is a super fun game to play on the Lan ETS event. This app is realy helpfull to manage the game.
 
 - Manage all the assets needed for this game, as Images and Sounds
