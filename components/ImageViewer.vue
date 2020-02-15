@@ -3,8 +3,8 @@
     <div>
       <h2 class="title">Guess the {{imageType}} - <span v-bind:class="[imageDifficulty]">{{imageDifficulty}}</span></h2>
     </div>
-    <img id="portrait-image" v-if="!gameOver">
-    <h1 v-if="gameOver" class="gameover">GAME OVER</h1>
+    <img id="portrait-image">
+    <h1 id="gameover">GAME OVER</h1>
     <h2 id="imageName" class="title">{{imageName}}</h2>
   </div>
 </template>
@@ -95,9 +95,12 @@ export default {
 </script>
 
 <style>
-.gameover {
+#gameover {
   padding: 20px;
   color: blue;
+  display: none;
+  position: absolute;
+  font-size: 5em;
 }
 
 #portrait-image {
