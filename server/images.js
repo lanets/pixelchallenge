@@ -3,7 +3,8 @@ const fs = require('fs')
 // Characters folder
 const pathCharactersEasy = './static/images/character/easy'
 const pathCharactersHard = './static/images/character/hard'
-const pathGames = './static/images/game'
+const pathGameEasy = './static/images/game/easy'
+const pathGameHard = './static/images/game/hard'
 const pathImage = 'images/'
 const pathEasy = 'easy/'
 const pathHard = 'hard/'
@@ -27,9 +28,11 @@ function extractImagePath() {
     fs.readdirSync(pathCharactersHard).forEach((file) => {
       images.push("character/".concat(pathHard).concat(file))
     })
-    // Extract Games
-    fs.readdirSync(pathGames).forEach((file) => {
-      images.push("game/".concat(file))
+    fs.readdirSync(pathGameEasy).forEach((file) => {
+      images.push("game/".concat(pathEasy).concat(file))
+    })
+    fs.readdirSync(pathGameHard).forEach((file) => {
+      images.push("game/".concat(pathHard).concat(file))
     })
     images = shuffle(images)
   }
@@ -62,10 +65,14 @@ function StartGame() {
 function GetNextImage() {
   currentImageIdx += 1
   if (currentImageIdx >= images.length) {
+    return null
     currentImageIdx = 0
   }
   reso = MaxReso
   pixelateObj[0].resolution = reso
+  console.log("Current IDX: ",currentImageIdx)
+  console.log("Total IDX: ",images.length)
+  console.log("image: ", images[currentImageIdx])
   let pathArray = images[currentImageIdx].split("/")
   let type = pathArray[0]
   let difficulty = pathArray[1]

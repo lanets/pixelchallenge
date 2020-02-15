@@ -3,7 +3,8 @@
     <div>
       <h2 class="title">Guess the {{imageType}} - <span v-bind:class="[imageDifficulty]">{{imageDifficulty}}</span></h2>
     </div>
-    <img id="portrait-image">
+    <img id="portrait-image" v-if="!gameOver">
+    <h1 v-if="gameOver" class="gameover">GAME OVER</h1>
     <div class="horizontal">
       <b-button id="btnShow" variant="outline-dark">
         SHOW
@@ -32,7 +33,8 @@ export default {
       imgElement: null,
       imageName: '',
       imageType: 'Character',
-      imageDifficulty: 'easy'
+      imageDifficulty: 'easy',
+      gameOver: false
     }
   },
   beforeMount () {
@@ -50,6 +52,9 @@ export default {
     })
     socket.on('show-image', () => {
       this.showImage()
+    })
+    socket.on('end-game', () => {
+      this.endGame()
     })
   },
   mounted () {
@@ -105,12 +110,20 @@ export default {
     },
     showImage(){
       this.myPixelation.renderOriginal()
+    },
+    endGame() {
+      this.gameOver = true;
     }
   }
 }
 </script>
 
 <style>
+.gameover {
+  padding: 20px;
+  color: blue;
+}
+
 #portrait-image {
   /* width: 100%; */
   /* max-width: 1000px; */

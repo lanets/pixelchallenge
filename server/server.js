@@ -39,8 +39,14 @@ io.on('connection', (socket) => {
 
   socket.on('next-image', function() {
     let data = GetNextImage()
-    socket.emit('next-image', data)
-    socket.broadcast.emit('next-image', data)
+    if( data != null) {
+      socket.emit('next-image', data)
+      socket.broadcast.emit('next-image', data)
+    }
+    else {
+      socket.emit('end-game')
+      socket.broadcast.emit('end-game')
+    }
   })
 
   socket.on('blur-image', function() {
